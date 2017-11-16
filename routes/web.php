@@ -14,3 +14,13 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/home', function () {
+    return view('index');
+});
+
+
+Route::resource('authen/login','UserController');
+
+Route::get('logout','Auth\LoginController@Logout');
+
+Route::resource('administrator/user','ManagementController');
