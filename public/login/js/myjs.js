@@ -6,9 +6,8 @@ $(document).ready(function(c) {
         var key  = $('#key').val();
         var pass = $('#password').val();
         var hash = md5(pass+key);
+        $('#password1').val(hash);
 
-        $('#password').val(hash);
-        
     });
 
 });

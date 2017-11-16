@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use Session;
 Use App\User;
-Use App\authen;
+Use App\Authen;
 use DB;
 use Crypt;
 use Hash;
@@ -49,7 +49,7 @@ class UserController extends Controller
      */
     public function store(AuthenRequest $request)
     {
-
+		
 
             $au = new Authen($request->email);
             if($au->Login($request->key,$request->password1)){
