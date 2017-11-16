@@ -14,6 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
 Route::get('/home', function () {
     return view('index');
 });
@@ -24,3 +25,13 @@ Route::resource('authen/login','UserController');
 Route::get('logout','Auth\LoginController@Logout');
 
 Route::resource('administrator/user','ManagementController');
+
+//route for listing filter by slug
+Route::get('{slug}-c{id}', function($slug,$id){
+	return view('layouts.slug_layout');
+});
+//route for single-product
+Route::get('{productName}-p{id}', function($productName,$id){
+	echo ('pruduct ' .$productName.' ' .$id);
+});
+
