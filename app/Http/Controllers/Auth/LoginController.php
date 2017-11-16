@@ -34,11 +34,11 @@ class LoginController extends Controller
      * @var string
      */
  
-    public function Logout(){
-        if(session()->has('login')){
-            session()->forget('login');
-            return redirect('authen/login');
+        public function Logout(){
+            if(session()->has('login')){
+                session()->forget('login');
+                return redirect('authen/login');
+            }
+            return null;
         }
-        return null;
-    }
 }
