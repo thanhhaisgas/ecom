@@ -9,7 +9,7 @@ use DB;
 use Session;
 use Crypt;
 
-class authen extends  Authenticatable{
+class Authen extends  Authenticatable{
 
 
 
@@ -48,7 +48,7 @@ class authen extends  Authenticatable{
     
     public function Login($key,$password){
         
-        try {
+    
             $user = DB::table('users')->where('email',$this->getAuthIdentifier())->first();
             $decrypted = Crypt::decrypt($user->password);
             if($password == md5("$decrypted$key")){
@@ -57,10 +57,7 @@ class authen extends  Authenticatable{
               //  return false;
             }
             return false;
-        } catch (\Exception $e) {
-            echo "<srcipt>alert('Error');d</srcipt>";
-        }
-  
+
        
         
      

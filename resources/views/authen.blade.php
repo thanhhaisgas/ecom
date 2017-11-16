@@ -41,10 +41,13 @@
 
             ?>
 	 	<input type='hidden' name='_token' value="{!! csrf_token() !!}" />
-        <input type="hidden" name="key" value="{!! $_SESSION['key']=str_random(30) !!}" id="key"/>       
+        <input type="hidden" name="key" value="{!! $_SESSION['key']=str_random(30) !!}" id="key"/> 
+         <input type="hidden"  name="password1" id="password1" />      
       <h2 class="form-signin-heading">Đăng Nhập</h2>
       <input type="email" class="form-control" name="email" id="email" placeholder="Email Address" required=""  autofocus="" />
-      <input type="password" class="form-control" name="password" id="password" placeholder="Password" required=" />      
+      <input type="password" class="form-control" name="password" id="password" placeholder="Password" required="" />  
+     
+          
       <label class="checkbox">
 
       </label>
