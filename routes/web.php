@@ -14,14 +14,18 @@
 Route::get('/', function () {
     return view('welcome');
 });
-//route for login
-Route::get('login', function(){
 
+Route::get('/home', function () {
+    return view('index');
 });
-//route for homepage
-Route::get('index', function(){
 
-});
+
+Route::resource('authen/login','UserController');
+
+Route::get('logout','Auth\LoginController@Logout');
+
+Route::resource('administrator/user','ManagementController');
+
 //route for listing filter by slug
 Route::get('{slug}-c{id}', function($slug,$id){
 	return view('layouts.slug_layout');
@@ -30,3 +34,4 @@ Route::get('{slug}-c{id}', function($slug,$id){
 Route::get('{productName}-p{id}', function($productName,$id){
 	echo ('pruduct ' .$productName.' ' .$id);
 });
+
