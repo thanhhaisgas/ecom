@@ -9,7 +9,7 @@ use DB;
 use Session;
 use Crypt;
 
-class Authen extends  Authenticatable{
+class Authen extends Authenticatable{
 
 
 

@@ -25,6 +25,7 @@ Route::resource('authen/login','UserController');
 Route::get('logout','Auth\LoginController@Logout');
 
 Route::resource('administrator/user','ManagementController');
+//route for admin-category
 Route::resource('administrator/category','CategoryController');
 //route for listing filter by slug
 Route::get('{slug}-c{id}', function($slug,$id){
