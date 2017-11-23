@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\UserRequest;
-use App\User;
-use Crypt;
-class ManagementController extends Controller
+use App\Image;
+use Storage;
+class ImageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +15,7 @@ class ManagementController extends Controller
     public function index()
     {
         //
-        $userList = User::all();
-      
-        return view('layouts.admin.user.list')->with('userList',$userList);
+        
     }
 
     /**
@@ -29,7 +26,6 @@ class ManagementController extends Controller
     public function create()
     {
         //
-        return view('layouts.admin.user.add');
     }
 
     /**
@@ -38,16 +34,9 @@ class ManagementController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserRequest $request)
+    public function store(Request $request)
     {
         //
-        $add = new User;
-        $add->name=$request->displayname;
-        $add->email=$request->email;  
-        $add->password= Crypt::encrypt($request->password);
-        $add->level = $request->cbright;
-        $add->save();  
-        return redirect('administrator/user');
     }
 
     /**
@@ -59,6 +48,9 @@ class ManagementController extends Controller
     public function show($id)
     {
         //
+        $image_list  = Image::where('product_id',$id)->get();
+
+        return view('layouts.admin.product.list_image')->with('image_list',$image_list);
     }
 
     /**
@@ -69,13 +61,7 @@ class ManagementController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id);
-        try {
-            $decrypted = Crypt::decrypt($user->password);
-        } catch (\Exception $e) {
-            
-        }
-        return view('layouts.admin.user.edit')->with(['user'=>$user,'decrypted'=>$decrypted]);
+        //
     }
 
     /**
@@ -85,14 +71,9 @@ class ManagementController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserRequest $request, $id)
+    public function update(Request $request, $id)
     {
         //
-        $user = User::find($id);
-        $user->name= $request->displayname;
-        $user->password = Crypt::encrypt($request->password);
-        $user->save();
-        return redirect('administrator/user');
     }
 
     /**
@@ -104,9 +85,10 @@ class ManagementController extends Controller
     public function destroy($id)
     {
         //
-        echo $id;
-        $user = User::findOrFail($id);
-        $user->delete();
-        return redirect('administrator/user');
+        $file_name = Image::find($id);
+        Storage::delete($file_name->url);
+        $file_name->delete();
+        return redirect('administrator/image/'.$file_name->product_id);       
+        
     }
 }

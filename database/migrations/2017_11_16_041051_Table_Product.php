@@ -20,10 +20,11 @@ class TableProduct extends Migration
             $table->integer('price');
             $table->text('info');
             $table->text('overview');
+            $table->string('link');
             $table->integer('inventory');
             $table->integer('status')->default(1);
-            $table->integer('images_id')->unsigned();
-            $table->foreign('images_id')->references('id')->on('images');
+            //$table->integer('images_id')->unsigned();
+           // $table->foreign('images_id')->references('id')->on('images');
        
         });
 

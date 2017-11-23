@@ -51,7 +51,7 @@ class UserController extends Controller
     {
 		
 
-            $au = new Authen($request->email);
+           $au = new Authen($request->email);
             if($au->Login($request->key,$request->password1)){
                 return redirect('home');
             }else{
