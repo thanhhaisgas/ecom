@@ -17,19 +17,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //get all categories to list      
-        $categoriesList = Category::all();
-        //get all name of parent for each category in list  
-        $parentNames = array();
-        foreach ($categoriesList as $item) {
-            if ($item->parent_id==null) {
-                array_push($parentNames, "");
-            }else{
-                $category = Category::find($item->parent_id);
-                array_push($parentNames, $category->name);
-            }
-        }        
-        return view('layouts.admin.category.list')->with(['categoriesList'=>$categoriesList,'parentNames'=>$parentNames]);
+        //show all categories as a list
+        $category = new Category;   
+        $param = array('categoriesList'=>$category->getParentNames(Category::all()));
+        return $this->create_view('layouts.admin.category.list', $param);
     }
 
     /**
@@ -40,7 +31,8 @@ class CategoryController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('layouts.admin.category.add_edit')->with(['name'=>"Add",'categories'=>$categories,'action'=>0]);
+        $param = array('name'=>'Add', 'categories'=>$categories, 'action'=>0);
+        return $this->create_view('layouts.admin.category.add_edit',$param);
     }
 
     /**
@@ -52,14 +44,8 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         //
-        $category = new category;
-        $category->name = $request->categoryname;
-        $category->status = $request->cbStatus;
-        if (isset($_POST['categoryParent'])&&$_POST['categoryParent']!=-1) {
-            $parent = $_POST['categoryParent'];        
-            $category->parent_id = $parent;
-        }
-        $category->save();
+        $category = new Category;
+        $category->create_category($request);
         return redirect('administrator/category');
     }
 
@@ -82,21 +68,17 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //find category
-        $item = Category::find($id);
-        //check logic and edit
+        //get current category
+        $category = Category::find($id);
+        //check logic
         $categoriesList = Category::where('id','<>',$id)->where(function($query) use ($id){
             $query->where('parent_id','=',null)->orwhere('parent_id','<>',$id);
         })
         ->get();
-        foreach ($categoriesList as $value) {
-               if($item->parent_id!=null && $item->parent_id==$value->id){
-                    $item->parent_id = $value->name;
-               }
-        }   
-        return view('layouts.admin.category.add_edit')->with(['name'=>"Update",'categories'=>$categoriesList,'action'=>1,'item'=>$item]);
-        
+        $param = array('name'=>'Update','categories'=>$category->getParentNames($categoriesList),'action'=>1,'item'=>$category);        
+        return $this->create_view('layouts.admin.category.add_edit',$param);        
     }
+    //Repository
 
     /**
      * Update the specified resource in storage.
@@ -109,15 +91,7 @@ class CategoryController extends Controller
     {
         //update category information
         $category = Category::find($id);
-        $category->name = $request->categoryname;
-        $category->status = $request->cbStatus;
-        if (isset($_POST['categoryParent'])&&$_POST['categoryParent']!=-1) {
-            $parent = $_POST['categoryParent'];        
-            $category->parent_id = $parent;
-        }else{
-            $category->parent_id = null;
-        }
-        $category->save();
+        $category->update_category($category, $request);
         return redirect('administrator/category');
 
     }
@@ -134,5 +108,9 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
         $category->delete();
         return redirect('administrator/category');
+    }
+
+    public function create_view($view, array $param){
+        return view($view, $param);
     }
 }
