@@ -4,8 +4,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Category
-                            <small>List</small>
+                        <h1 class="page-header">Category List
                         </h1>
                     </div>
                     <!-- /.col-lg-12 -->
@@ -21,22 +20,23 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <?php $i=0; ?>
+                            @foreach($categoriesList as $item)
                             <tr class="odd gradeX" align="center">
-                                <td>1</td>
-                                <td>Tin Tức</td>
-                                <td>None</td>
-                                <td>Hiện</td>
-                                <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a href="#"> Delete</a></td>
-                                <td class="center"><i class="fa fa-pencil fa-fw"></i> <a href="#">Edit</a></td>
+                                <td>{!!$item->id!!}</td>
+                                <td>{!!$item->name!!}</td>
+                                <td>{!!$parentNames[$i]!!}</td>
+                                <td><?php if($item->status==1){echo "Show";}else{echo "Hide";} ?></td>
+                                <form method="post" action="{{ route('category.destroy',$item->id)}}">
+                                <input type="hidden" name="_token" value="{!! csrf_token()!!}"/>
+                                <input type="hidden" name="_method" value="DELETE"/>
+                                <input type="hidden" name="id" value="{{$item->id}}"/>
+                                <td class="center"><button type="submit" onclick="return confirm('Are you sure ?')" class="btn btn-danger">Delete</button></td>
+                                </form>
+                                <td class="center"><i class="fa fa-pencil fa-fw"></i> <a href="{!! route('category.edit',$item->id)!!}">Edit</a></td>
                             </tr>
-                            <tr class="even gradeC" align="center">
-                                <td>2</td>
-                                <td>Bóng Đá</td>
-                                <td>Thể Thao</td>
-                                <td>Ẩn</td>
-                                <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a href="#"> Delete</a></td>
-                                <td class="center"><i class="fa fa-pencil fa-fw"></i> <a href="#">Edit</a></td>
-                            </tr>
+                            <?php $i++; ?>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
