@@ -18,8 +18,8 @@ class CategoryController extends Controller
     public function index()
     {
         //show all categories as a list
-        $category = new Category;   
-        $param = array('categoriesList'=>$category->getParentNames(Category::all()));
+        $categoriesList = Category::getAllCategoriesWithParentNames();   
+        $param = array('categoriesList'=>$categoriesList);
         return $this->create_view('layouts.admin.category.list', $param);
     }
 
@@ -30,7 +30,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
+        $categories = Category::getAllCategories();
         $param = array('name'=>'Add', 'categories'=>$categories, 'action'=>0);
         return $this->create_view('layouts.admin.category.add_edit',$param);
     }
@@ -45,7 +45,10 @@ class CategoryController extends Controller
     {
         //
         $category = new Category;
-        $category->create_category($request);
+        $category->setName($request->categoryname);
+        $category->setStatus($request->cbStatus);
+        $category->setParent_id($request->categoryParent);
+        $category->createOrUpdateCategory($category);
         return redirect('administrator/category');
     }
 
@@ -67,15 +70,13 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
+    {        
         //get current category
         $category = Category::find($id);
         //check logic
-        $categoriesList = Category::where('id','<>',$id)->where(function($query) use ($id){
-            $query->where('parent_id','=',null)->orwhere('parent_id','<>',$id);
-        })
-        ->get();
-        $param = array('name'=>'Update','categories'=>$category->getParentNames($categoriesList),'action'=>1,'item'=>$category);        
+        $categoriesList = array();
+        $categoriesList = Category::getAvailableNamesCategory($id, Category::getChildOfCategory($id, $categoriesList));
+        $param = array('name'=>'Update','categories'=>$categoriesList,'action'=>1,'item'=>$category);        
         return $this->create_view('layouts.admin.category.add_edit',$param);        
     }
     //Repository
@@ -90,8 +91,11 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         //update category information
-        $category = Category::find($id);
-        $category->update_category($category, $request);
+        $category = Category::getCategoryById($id);
+        $category->setName($request->categoryname);
+        $category->setStatus($request->cbStatus);
+        $category->setParent_id($request->categoryParent);
+        $category->createOrUpdateCategory($category);
         return redirect('administrator/category');
 
     }
@@ -105,8 +109,10 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         //
-        $category = Category::findOrFail($id);
-        $category->delete();
+        $categoriesList = array();
+        $categoriesList = Category::getChildOfCategory($id,$categoriesList);
+        Category::hideChildCategoriesAfterDelete($categoriesList);
+        Category::deleteCategoryById($id);
         return redirect('administrator/category');
     }
 
