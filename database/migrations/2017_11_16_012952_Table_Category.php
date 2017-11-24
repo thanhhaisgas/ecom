@@ -19,8 +19,9 @@ class TableCategory extends Migration
             $table->string('name');
             $table->integer('status')->default(1);
             $table->integer('parent_id')->unsigned()->nullable();
-            $table->foreign('parent_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreign('parent_id')->references('id')->on('categories');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

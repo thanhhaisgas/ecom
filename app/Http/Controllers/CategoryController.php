@@ -17,19 +17,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //get all categories to list      
-        $categoriesList = Category::all();
-        //get all name of parent for each category in list  
-        $parentNames = array();
-        foreach ($categoriesList as $item) {
-            if ($item->parent_id==null) {
-                array_push($parentNames, "");
-            }else{
-                $category = Category::find($item->parent_id);
-                array_push($parentNames, $category->name);
-            }
-        }        
-        return view('layouts.admin.category.list')->with(['categoriesList'=>$categoriesList,'parentNames'=>$parentNames]);
+        //show all categories as a list
+        $categoriesList = Category::getAllCategoriesWithParentNames();   
+        $param = array('categoriesList'=>$categoriesList);
+        return $this->create_view('layouts.admin.category.list', $param);
     }
 
     /**
@@ -39,8 +30,9 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
-        return view('layouts.admin.category.add_edit')->with(['name'=>"Add",'categories'=>$categories,'action'=>0]);
+        $categories = Category::getAllCategories();
+        $param = array('name'=>'Add', 'categories'=>$categories, 'action'=>0);
+        return $this->create_view('layouts.admin.category.add_edit',$param);
     }
 
     /**
@@ -52,14 +44,11 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         //
-        $category = new category;
-        $category->name = $request->categoryname;
-        $category->status = $request->cbStatus;
-        if (isset($_POST['categoryParent'])&&$_POST['categoryParent']!=-1) {
-            $parent = $_POST['categoryParent'];        
-            $category->parent_id = $parent;
-        }
-        $category->save();
+        $category = new Category;
+        $category->setName($request->categoryname);
+        $category->setStatus($request->cbStatus);
+        $category->setParent_id($request->categoryParent);
+        $category->createOrUpdateCategory($category);
         return redirect('administrator/category');
     }
 
@@ -81,22 +70,16 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        //find category
-        $item = Category::find($id);
-        //check logic and edit
-        $categoriesList = Category::where('id','<>',$id)->where(function($query) use ($id){
-            $query->where('parent_id','=',null)->orwhere('parent_id','<>',$id);
-        })
-        ->get();
-        foreach ($categoriesList as $value) {
-               if($item->parent_id!=null && $item->parent_id==$value->id){
-                    $item->parent_id = $value->name;
-               }
-        }   
-        return view('layouts.admin.category.add_edit')->with(['name'=>"Update",'categories'=>$categoriesList,'action'=>1,'item'=>$item]);
-        
+    {        
+        //get current category
+        $category = Category::find($id);
+        //check logic
+        $categoriesList = array();
+        $categoriesList = Category::getAvailableNamesCategory($id, Category::getChildOfCategory($id, $categoriesList));
+        $param = array('name'=>'Update','categories'=>$categoriesList,'action'=>1,'item'=>$category);        
+        return $this->create_view('layouts.admin.category.add_edit',$param);        
     }
+    //Repository
 
     /**
      * Update the specified resource in storage.
@@ -108,16 +91,11 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         //update category information
-        $category = Category::find($id);
-        $category->name = $request->categoryname;
-        $category->status = $request->cbStatus;
-        if (isset($_POST['categoryParent'])&&$_POST['categoryParent']!=-1) {
-            $parent = $_POST['categoryParent'];        
-            $category->parent_id = $parent;
-        }else{
-            $category->parent_id = null;
-        }
-        $category->save();
+        $category = Category::getCategoryById($id);
+        $category->setName($request->categoryname);
+        $category->setStatus($request->cbStatus);
+        $category->setParent_id($request->categoryParent);
+        $category->createOrUpdateCategory($category);
         return redirect('administrator/category');
 
     }
@@ -131,8 +109,14 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         //
-        $category = Category::findOrFail($id);
-        $category->delete();
+        $categoriesList = array();
+        $categoriesList = Category::getChildOfCategory($id,$categoriesList);
+        Category::hideChildCategoriesAfterDelete($categoriesList);
+        Category::deleteCategoryById($id);
         return redirect('administrator/category');
+    }
+
+    public function create_view($view, array $param){
+        return view($view, $param);
     }
 }
