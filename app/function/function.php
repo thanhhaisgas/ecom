@@ -1,5 +1,5 @@
 <?php
-
+	
 // Mở composer.json
 // Thêm vào trong "autoload" chuỗi sau
 // "files": [
@@ -76,6 +76,17 @@ function stripUnicode($str){
 	}
 	return $str;
 }
+
+	function moveFiles(Request $request){
+	
+		foreach($request->file('file') as $item){
+            $stringrand=str_random(6);
+            $images[] =$stringrand.$item->getClientOriginalName();
+            //move file
+             Storage::put($stringrand.$item->getClientOriginalName(), file_get_contents($item)); 
+		} 
+		
+	}
 
 
 ?>

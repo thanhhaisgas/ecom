@@ -51,6 +51,7 @@ class EloquentProductRepository extends AbstractRepository implements ProductRep
             $images[]=$item->getClientOriginalName();
             Storage::disk('public')->put($item->getClientOriginalName(), file_get_contents($item));
          }
+         print_r($images);
          foreach($images as $teo){
             Image::insert([
                 'url'=>$teo,

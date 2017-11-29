@@ -5,7 +5,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Add User
+                        <h1 class="page-header">Add Product
                         
                         </h1>
                     </div>
@@ -23,9 +23,10 @@
                     @endif
                         <form method="POST" action="{!! route('product.store') !!}" enctype="multipart/form-data">
                            <input type="hidden" name="_token" value="{!! csrf_token() !!}" />
+
                            <div class="form-group">
                                 <label>Category</label>
-                                <select name="cbcategory" class="form-control">
+                                <select name="category_id" class="form-control">
                                 @foreach($category_list as $item)
                                     <option value="{!!$item->id!!}">{!!$item->name!!}</option>
                                 @endforeach
@@ -41,11 +42,11 @@
                             </div>
                             <div class="form-group">
                                 <label>Info</label>
-                                <textarea placeholder="Please Enter Infod" id="info" name="info" class="form-control" rows="3"></textarea>
+                                <textarea  id="editor1" placeholder="Please Enter Infod"  name="info" class="form-control" rows="3"></textarea>
                             </div>
                              <div class="form-group">
                                 <label>Review</label>
-                                <textarea  placeholder="Please Enter Review" id="editor1" name="overview" class="form-control" rows="3"></textarea>
+                                <textarea   placeholder="Please Enter Review" id="editor2" name="overview" class="form-control" rows="3"></textarea>
       
                             </div>
 
@@ -64,10 +65,10 @@
                             <div class="form-group">
                                 <label>Status</label>
                                 <label class="radio-inline">
-                                    <input name="cbright" value="1"  checked="" type="radio">Show
+                                    <input name="status" value="1"  checked="" type="radio">Show
                                 </label>
                                 <label class="radio-inline">
-                                    <input name="cbright" value="0" type="radio">Hidden
+                                    <input name="status" value="0" type="radio">Hidden
                                 </label>
                             </div>
 

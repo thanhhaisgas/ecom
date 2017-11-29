@@ -5,7 +5,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">User
+                        <h1 class="page-header">Image
                             <small>List</small>
                         </h1>
                     </div>

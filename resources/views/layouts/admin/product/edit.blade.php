@@ -5,7 +5,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Add User
+                        <h1 class="page-header">Edit Product
                         
                         </h1>
                     </div>
@@ -28,7 +28,15 @@
                             <input type="hidden" name="_method" value="PUT"/>
                             <input type="hidden" name="id" value="{{$product_edit->id}}"/>
                            <input type="hidden" name="_token" value="{!! csrf_token() !!}" />
-                           
+                                <div class="form-group">
+                                <label>Category</label>
+                                 <select class="form-control"  name="category_id" >
+                                  
+                                    
+                                     <option checked value=""></option>
+                                                               
+                                </select>
+                            </div>
                             <div class="form-group">
                                 <label>Product Name</label>
                                 <input value="{!! $product_edit->name !!}" class="form-control" type="text"  name="name" id="name" placeholder="Please Enter Product Name" />
@@ -39,11 +47,11 @@
                             </div>
                             <div class="form-group">
                                 <label>Info</label>
-                                <textarea placeholder="Please Enter Infod" id="info" name="info" class="form-control" rows="3">{!! $product_edit->info !!}</textarea>
+                                <textarea id="editor2"  placeholder="Please Enter Infod" id="info" name="info" class="form-control" rows="3">{!! $product_edit->info !!}</textarea>
                             </div>
                              <div class="form-group">
                                 <label>Review</label>
-                                <textarea placeholder="Please Enter Review" id="overview" name="overview" class="form-control" rows="3">{!! $product_edit->overview !!}</textarea>
+                                <textarea  id="editor1" placeholder="Please Enter Review" id="overview" name="overview" class="form-control" rows="3">{!! $product_edit->overview !!}</textarea>
                             </div>
 
                             <div class="form-group">
@@ -54,10 +62,10 @@
                             <div class="form-group">
                                 <label>Status</label>
                                 <label class="radio-inline">
-                                    <input name="cbright" value="1"  checked="" type="radio">Show
+                                    <input name="status" value="1"  checked="" type="radio">Show
                                 </label>
                                 <label class="radio-inline">
-                                    <input name="cbright" value="0" type="radio">Hidden
+                                    <input name="status" value="0" type="radio">Hidden
                                 </label>
                             </div>
 
@@ -69,16 +77,24 @@
                         <form id="form_value" action="#" >
                         <input type="hidden" name="_token" value="{!! csrf_token() !!}" />
                             <input type="hidden" value="{!!$product_edit->id!!}" id="product_id"/>
-                           <div class="form-group">
-                                <label> Key</label>
-                                <input value="" class="form-control" type="text"  name="keyAttribute" id="keyAttribute" placeholder="Please Enter Product Name" />
+                    
+           
+                                
+                                 <div class="form-group">
+                                <label>Key</label>
+                                 <select class="form-control"  name="keyAttribute" id="keyAttribute" >
+                                    <option value="Color">Color</option>
+                                    <option value="Size">Size</option>
+                            
+                                </select>
                             </div>
+      
 
 
 
                             <div class="form-group">
                                 <label> Value</label>
-                                <input value="" class="form-control" type="text"  name="valueAttribute" id="valueAttribute" placeholder="Please Enter Product Name" />
+                                <input value="" class="form-control" type="text"  name="valueAttribute" id="valueAttribute" placeholder="Please Enter Value Attribute" />
                             </div>
 
                             <button onclick="return confirm('Are you sure ?')" id="btnattribute" class="alert alert-success" type="submit">Add Attribute</button>

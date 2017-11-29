@@ -17,7 +17,6 @@
 
     <!-- Custom CSS -->
     <link href="{{ asset('admin/dist/css/sb-admin-2.css') }}" rel="stylesheet">
-
     <!-- Custom Fonts -->
     <link href="{{ asset('admin/bower_components/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
 
@@ -62,6 +61,7 @@
     <script src="{{ asset('js/myjs.js') }}"></script>
     <script>
 			CKEDITOR.replace( 'editor1' );
+            CKEDITOR.replace( 'editor2' );
 		</script>
 
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->

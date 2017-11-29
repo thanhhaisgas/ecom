@@ -27,6 +27,7 @@ Route::get('logout','Auth\LoginController@Logout');
 
 //product
 Route::resource('administrator/user','ManagementController');
+//route for admin-category
 Route::resource('administrator/category','CategoryController');
 Route::resource('administrator/product','ProductController');
 Route::resource('administrator/image','ImageController');
