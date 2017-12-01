@@ -34,12 +34,7 @@
                 </ul>
             </div>
             @endif
-            <?php
-            if(isset($fail)){
-          print_r($fail);
-            }
-
-            ?>
+      
 	 	<input type='hidden' name='_token' value="{!! csrf_token() !!}" />
         <input type="hidden" name="key" value="{!! $_SESSION['key']=str_random(30) !!}" id="key"/> 
          <input type="hidden"  name="password1" id="password1" />      
