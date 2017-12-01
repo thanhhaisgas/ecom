@@ -50,14 +50,18 @@ class Authen extends Authenticatable{
         
     
             $user = DB::table('users')->where('email',$this->getAuthIdentifier())->first();
-            $decrypted = Crypt::decrypt($user->password);
-            if($password == md5("$decrypted$key")){
-                    session()->put('login',$user);
-                    return true;
-              //  return false;
+            if($user!=null){
+                $decrypted = Crypt::decrypt($user->password);
+                
+                   if($password == md5("$decrypted$key")){
+                           session()->put('login',$user);
+                         return true;
+                   }
             }
+          
             return false;
-
+            
+        
        
         
      
