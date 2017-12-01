@@ -15,9 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', function () {
+/*Route::get('/home', function () {
     return view('index');
-});
+});*/
+
+Route::get('/home', 'ProductListDetail\ViewController@setViewHome');
 
 
 Route::resource('authen/login','UserController');
@@ -28,9 +30,7 @@ Route::resource('administrator/user','ManagementController');
 //route for admin-category
 Route::resource('administrator/category','CategoryController');
 //route for listing filter by slug
-Route::get('{slug}-c{id}', function($slug,$id){
-	return view('layouts.slug_layout');
-});
+Route::get('{slug}/c{id}', 'ProductListDetail\ViewController@setView');
 //route for single-product
 Route::get('{productName}-p{id}', function($productName,$id){
 	echo ('pruduct ' .$productName.' ' .$id);
