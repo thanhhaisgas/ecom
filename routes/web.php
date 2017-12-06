@@ -15,9 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', function () {
+/*Route::get('/home', function () {
     return view('index');
-});
+});*/
+
+Route::get('/home-page={Num}', 'ProductListDetail\ViewController@setViewHome');
 
 
 Route::resource('authen/login','UserController');
@@ -29,6 +31,7 @@ Route::get('logout','Auth\LoginController@Logout');
 Route::resource('administrator/user','ManagementController');
 //route for admin-category
 Route::resource('administrator/category','CategoryController');
+
 Route::resource('administrator/product','ProductController');
 Route::resource('administrator/image','ImageController');
 
@@ -41,11 +44,7 @@ Route::post('/ajax_insert_value_post_1','AjaxController@Post_Insert_Value_List')
 
 
 //route for listing filter by slug
-Route::get('{slug}-c{id}', function($slug,$id){
-	return view('layouts.slug_layout');
-});
+Route::get('{slug}/c{id}-page={Num}', 'ProductListDetail\ViewController@setViewListing');
 //route for single-product
-Route::get('{productName}/p{id}', function($productName,$id){
-	echo ('pruduct ' .$productName.' ' .$id);
-});
+Route::get('{productName}/p{id}', 'ProductListDetail\ViewController@setViewProductDetail');
 

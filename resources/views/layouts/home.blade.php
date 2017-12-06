@@ -196,23 +196,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="container">
 	<ol class="breadcrumb breadcrumb-arrow">
 	@if($listBreadcrum==null)
-		<li class="active"><span>Home</span></li>	
-	@else
-		<li><a href="/home-page=1">Home</a></li>
-		<?php
-			$i=0;
-			$length = count($listBreadcrum);
-		?>
-		@foreach($listBreadcrum as $item)	
-			@if($i == $length - 1)		
-			<li class="active"><span>{!!$item->name!!}</span></li>
-			@else
-			<li><a href="/{!!$item->slug!!}-page=1">{!!$item->name!!}</a></li>
-			@endif
-			<?php
-				$i=++$i;
-			?>
-		@endforeach
+		<li class="active"><span>Home</span></li>
 	@endif
 	</ol>
 	</div>
@@ -352,25 +336,25 @@ amet consectetuer </a></h6>
 				  <ul class="pagination">
 				  	<!--hide previous button if current page = 1-->
 				  	@if($currentPage==1)
-					<li class="hide"><a href="c{!!$idCategory!!}-page={!!$currentPage-1!!}" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+					<li class="hide"><a href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
 					@else
-					<li ><a href="c{!!$idCategory!!}-page={!!$currentPage-1!!}" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+					<li ><a href="/home-page={!!$currentPage-1!!}" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
 					@endif
 					<!---->		
 					<!--active button if current page = $i-->
 					@for($i = 1; $i <= $totalPage; $i++)
 					@if($currentPage==$i)
-					<li class="active"><a href="c{!!$idCategory!!}-page={!!$i!!}">{!!$i!!}<span class="sr-only"></span></a></li>
+					<li class="active"><a href="/home-page={!!$i!!}">{!!$i!!}<span class="sr-only"></span></a></li>
 					@else
-					<li><a href="c{!!$idCategory!!}-page={!!$i!!}">{!!$i!!}<span class="sr-only"></span></a></li>
+					<li><a href="/home-page={!!$i!!}">{!!$i!!}<span class="sr-only"></span></a></li>
 					@endif					
 					@endfor
 					<!---->
 					<!--hide next button if current page = 1-->	
 					@if($currentPage==$totalPage)
-					<li class="hide"> <a href="c{!!$idCategory!!}-page={!!$currentPage+1!!}" aria-label="Next"><span aria-hidden="true">»</span> </a> </li>
+					<li class="hide"> <a href="#" aria-label="Next"><span aria-hidden="true">»</span> </a> </li>
 					@else
-					<li> <a href="c{!!$idCategory!!}-page={!!$currentPage+1!!}" aria-label="Next"><span aria-hidden="true">»</span> </a> </li>
+					<li> <a href="/home-page={!!$currentPage+1!!}" aria-label="Next"><span aria-hidden="true">»</span> </a> </li>
 					@endif	
 					<!---->					
 				  </ul>

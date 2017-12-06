@@ -57,11 +57,11 @@
                            {{ method_field("PUT") }}
                             <div class="form-group">
                                 <label>Category name</label>
-                                <input class="form-control" type="text"  name="categoryname" id="categoryname" value={!!$item->name!!} />
+                                <input class="form-control" type="text"  name="categoryname" id="categoryname" value="{!!$item->name!!}" />
                             </div>                            
                             <div class="form-group">
                                 <label>Status</label>
-                                @if($item->status=1)
+                                @if($item->status==1)
                                 <br>
                                 <label class="radio-inline">
                                     <input type="radio" checked="checked" name="cbStatus" value="1"/> Show
@@ -87,7 +87,7 @@
 	                            <select class="form-control" name="categoryParent" style="width: auto;">
 	                            	<option value=-1>None</option>
 	                            	@foreach($categories as $category) 
-										    <option value={!!$category->id!!}>{!!$category->name!!}</option>
+										    <option value="{!!$category->id!!}">{!!$category->name!!}</option>
 									@endforeach	
 								</select>							
 							</div>

@@ -2481,16 +2481,16 @@
         },
         {
             "name": "ozankurt/repoist",
-            "version": "2.0.3",
+            "version": "2.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/OzanKurt/Repoist.git",
-                "reference": "25d5b5dee6da13a901c28d05df088a4957c611c3"
+                "reference": "42728455555ef49730be34c23aa2ab8e89f5e6e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OzanKurt/Repoist/zipball/25d5b5dee6da13a901c28d05df088a4957c611c3",
-                "reference": "25d5b5dee6da13a901c28d05df088a4957c611c3",
+                "url": "https://api.github.com/repos/OzanKurt/Repoist/zipball/42728455555ef49730be34c23aa2ab8e89f5e6e2",
+                "reference": "42728455555ef49730be34c23aa2ab8e89f5e6e2",
                 "shasum": ""
             },
             "require": {
@@ -2519,7 +2519,7 @@
                 "repoist",
                 "repository"
             ],
-            "time": "2017-11-20T14:37:44+00:00"
+            "time": "2017-11-25T01:39:56+00:00"
         },
         {
             "name": "phar-io/manifest",

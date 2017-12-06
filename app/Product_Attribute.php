@@ -21,6 +21,14 @@ class Product_Attribute extends Model
         return $this->id;
     }
 
+    /*Hai Nguyen*/
+    public function setValue($value){
+        return $this->value=$value;
+    }
+    public function getValue(){
+        return $this->value;
+    }
+
 
     public static function getByIdAttribute($id){
         $find = Product_Attribute::where('product_id',$id)->get();
@@ -37,5 +45,12 @@ class Product_Attribute extends Model
     //delete attribute follwing product_id
     public static function DeleteAttributeProduct_id($id){
         Product_Attribute::where('product_id',$id)->delete();
+    }
+
+    /*Hai Nguyen*/
+    //get attribute by product id
+    public static function getAttributeByProductId($id, $name){
+        $listAttributes = Product_Attribute::where('product_id',$id)->where('name',$name)->get();
+        return $listAttributes;
     }
 }

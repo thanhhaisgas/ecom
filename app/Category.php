@@ -12,7 +12,7 @@ class Category extends Model
 	use SoftDeletes;
     //category object include 3 properties: name, status, parent_id.
     protected $table = 'categories';
-    protected $filltable = ['id','name','status','parent_id'];
+    protected $filltable = ['id','name', 'slug', 'status','parent_id'];
     protected $dates = ['deleted_at'];
 
     public function getId()
@@ -26,7 +26,27 @@ class Category extends Model
 	public function setName($value)
 	{
     	$this->name = $value;
-	}    
+	}
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+    public function setSlug($value, $id)
+    {
+        if($id==null){
+            $id = 0;
+            try {
+                $id = ++Category::all()->last()->id;       
+            } catch (\Exception $e) {
+                $id = ++$id;
+            }       
+            $value = strtolower(str_replace(" ","-",$value)).'/c'.$id;
+            $this->slug = $value;
+        }else{
+            $value = strtolower(str_replace(" ","-",$value)).'/c'.$id;
+            $this->slug = $value;
+        }
+    }      
 	public function getStatus()
 	{
     	return $this->status;
@@ -84,12 +104,12 @@ class Category extends Model
     	}
     	return $category;
     }
-
-    public static function getChildOfCategory($id, array $listChilds){
+    //get all lower categories available for parent category
+    public static function getAllChildsOfCategory($id, array $listChilds){
     	$categoriesList = Category::where('parent_id','=',$id)->where('id','<>',$id)->get();
     	foreach ($categoriesList as $item) {
     		array_push($listChilds,$item);
-    		Category::getChildOfCategory($item->id, $listChilds);
+    		Category::getAllChildsOfCategory($item->id, $listChilds);
     	}
     	return $listChilds;
     }
@@ -98,21 +118,25 @@ class Category extends Model
     	$categoriesList = Category::where('id','<>',$id)->get();
     	$listParentCateogry = array();
     	$isChild = true;
-    	foreach ($categoriesList as $category) {
-    		foreach ($listChilds as $categoryChild) {
-    			if($category->id==$categoryChild->id){
-    				$isChild = true;
-    				break;
-    			}else{
-    				$isChild = false;
-    				continue;
-    			}
-    		}
-    		if ($isChild==false) {
-    			array_push($listParentCateogry,$category);
-    			$isChild = true;
-    		}
-    	}
+    	if($listChilds==null){
+            return $categoriesList;
+        }else{
+            foreach ($categoriesList as $category) {
+                foreach ($listChilds as $categoryChild) {
+                    if($category->id==$categoryChild->id){
+                        $isChild = true;
+                        break;
+                    }else{
+                        $isChild = false;
+                        continue;
+                    }
+                }
+                if ($isChild==false) {
+                    array_push($listParentCateogry,$category);
+                    $isChild = true;
+                }
+            }
+        }
     	return $listParentCateogry;
     }
 
@@ -126,5 +150,34 @@ class Category extends Model
     		$category->setStatus(0);
     		$category->save();
     	}
+    }
+
+    public static function getRootCategories(){
+        $categoriesList = Category::where('parent_id','=',null)->get();
+        return $categoriesList;
+    }
+    //get lower categories available for parent category
+    public static function getChildsOfCategory($id){
+        $categoriesList = Category::where('parent_id','=',$id)->where('id','<>',$id)->get();
+        return $categoriesList;
+    }
+    //get name for breadcrum
+    public static function getNameBreadcrum($id, array $listChilds){
+        $category = Category::getCategoryById($id);
+        array_push($listChilds,$category);
+        while ($category->parent_id!=null) {            
+            $category = Category::getCategoryById($category->parent_id);
+            array_push($listChilds,$category);
+        }
+        $length=count($listChilds);
+        for ($i=0; $i < count($listChilds) ; $i++) { 
+            if($length!=1){
+                $temp = $listChilds[$i];
+                $listChilds[$i] = $listChilds[$length-1];
+                $listChilds[$length-1] = $temp;
+            }
+            $length = --$length;
+        }
+        return $listChilds;
     }
 }

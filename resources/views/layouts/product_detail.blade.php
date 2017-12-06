@@ -7,7 +7,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE html>
 <html>
 <head>
-<title>New Store A Ecommerce Category Flat Bootstarp Resposive Website Template | Products :: w3layouts</title>
+<title>New Store A Ecommerce Category Flat Bootstarp Resposive Website Template | Signle :: w3layouts</title>
 <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet" type="text/css" media="all" />
 <link href="{{ asset('css/breadcrumbs.css') }}" rel="stylesheet" type="text/css" media="all" />
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -28,6 +28,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link href="{{asset('css/memenu.css')}}" rel="stylesheet" type="text/css" media="all" />
 <script type="text/javascript" src="{{asset('js/memenu.js')}}"></script>
 <script>$(document).ready(function(){$(".memenu").memenu();});</script>
+ 
+
+<script src="{{asset('js/main.js')}}"></script>
 <script src="{{asset('js/simpleCart.min.js')}}"> </script>
 </head>
 <body>
@@ -44,8 +47,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="header-left">		
 					<ul>
 						<li ><a class="lock"  href="login.html"  >Login</a></li>
-						<li><a class="lock" href="games.html"  >Checkout</a></li>
-						<li></li>
+						<li><a class="lock" href="register.html"  >Register</a></li>
+						<li>
+</li>
 
 					</ul>
 					<div class="cart box_1">
@@ -54,7 +58,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<span class="simpleCart_total"></span> (<span id="simpleCart_quantity" class="simpleCart_quantity"></span> items)</div>
 							<img src="{{asset('images/cart.png')}}" alt=""/></h3>
 						</a>
-						<p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
+				<p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
 
 					</div>
 					<div class="clearfix"> </div>
@@ -68,7 +72,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<a href="index.html"><img src="{{asset('images/logo.png')}}" alt=""></a>	
 				</div>
 		  <div class=" h_menu4">
-				<ul class="memenu skyblue">
+					<ul class="memenu skyblue">
 					  <li class="active grid"><a class="color8" href="index.html">Home</a></li>	
 				      <li><a class="color1" href="#">Shop</a>
 				      	<div class="mepanel">
@@ -192,59 +196,41 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</div>
 
 	</div>
-	<!--Breadcrum-->
-	<div class="container">
-	<ol class="breadcrumb breadcrumb-arrow">
-	@if($listBreadcrum==null)
-		<li class="active"><span>Home</span></li>	
-	@else
-		<li><a href="/home-page=1">Home</a></li>
-		<?php
-			$i=0;
-			$length = count($listBreadcrum);
-		?>
-		@foreach($listBreadcrum as $item)	
-			@if($i == $length - 1)		
-			<li class="active"><span>{!!$item->name!!}</span></li>
-			@else
-			<li><a href="/{!!$item->slug!!}-page=1">{!!$item->name!!}</a></li>
-			@endif
-			<?php
-				$i=++$i;
-			?>
-		@endforeach
-	@endif
-	</ol>
-	</div>
-	<!--EndBreadcrum-->
 
-	
-<!--content-->
-<!---->
-<!--Category-->
+    <!--Breadcrum-->
+    <div class="container">
+        <ol class="breadcrumb breadcrumb-arrow">
+            @if($listBreadcrum==null)
+                <li class="active"><span>Home</span></li>
+            @else
+                <li><a href="/home-page=1">Home</a></li>
+                <?php
+                $i=0;
+                $length = count($listBreadcrum);
+                ?>
+                @foreach($listBreadcrum as $item)
+                    <li><a href="/{!!$item->slug!!}-page=1">{!!$item->name!!}</a></li>
+                    <?php
+                    $i=++$i;
+                    ?>
+                @endforeach
+                <li class="active"><span>{!!$product->getName()!!}</span></li>
+            @endif
+        </ol>
+    </div>
+    <!--EndBreadcrum-->
+
 		<div class="product">
 			<div class="container">
-				<div class="col-md-3 product-price">					  
-					<div class=" rsidebar span_1_of_left">
-						<div class="of-left">
-							<h3 class="cate">Categories</h3>
-						</div>
-						<ul class="menu">		
-							@foreach($categoriesList as $item)
-							<li class="item"><a href="/{!!$item->slug!!}-page=1">{!!$item->name!!}</a></li>
-							@endforeach
-						</ul>
-					</div>
-<!--EndCategory-->
-<!---->
-	<div class="product-middle">
-		
+				<div class="col-md-3 product-price">
+	    <div class="product-middle">
+
 					<div class="fit-top">
 						<h6 class="shop-top">Lorem Ipsum</h6>
-						<a href="single.html" class="shop-now">SHOP NOW</a>
-<div class="clearfix"> </div>
+						<a href="#" class="shop-now">SHOP NOW</a>
+        <div class="clearfix"> </div>
 	</div>
-				</div>	 
+				</div>
 						<div class="sellers">
 							<div class="of-left-in">
 								<h3 class="tag">Tags</h3>
@@ -263,12 +249,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										<li><a href="#">fashion</a></li>
 										<li><a href="#">lorem</a></li>
 										<li><a href="#">dress</a></li>
-										
+
 										<div class="clearfix"> </div>
 									</ul>
-								
+
 								</div>
-								
+
 		</div>
 				<!---->
 				<div class="product-bottom">
@@ -277,11 +263,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							</div>
 					<div class="product-go">
 						<div class=" fashion-grid">
-									<a href="single.html"><img class="img-responsive " src="{{asset('images/p1.jpg')}}" alt=""></a>
+									<a href="#"><img class="img-responsive " src="{{asset('images/p1.jpg')}}" alt=""></a>
 									
 								</div>
 							<div class=" fashion-grid1">
-								<h6 class="best2"><a href="single.html" >Lorem ipsum dolor sit
+								<h6 class="best2"><a href="#" >Lorem ipsum dolor sit
 amet consectetuer  </a></h6>
 								
 								<span class=" price-in1"> $40.00</span>
@@ -291,11 +277,11 @@ amet consectetuer  </a></h6>
 							</div>
 							<div class="product-go">
 						<div class=" fashion-grid">
-									<a href="single.html"><img class="img-responsive " src="{{asset('images/p2.jpg')}}" alt=""></a>
+									<a href="#"><img class="img-responsive " src="{{asset('images/p2.jpg')}}" alt=""></a>
 									
 								</div>
 							<div class="fashion-grid1">
-								<h6 class="best2"><a href="single.html" >Lorem ipsum dolor sit
+								<h6 class="best2"><a href="#" >Lorem ipsum dolor sit
 amet consectetuer </a></h6>
 								
 								<span class=" price-in1"> $40.00</span>
@@ -306,7 +292,7 @@ amet consectetuer </a></h6>
 					
 				</div>
 <div class=" per1">
-				<a href="single.html" ><img class="img-responsive" src="{{asset('images/pro.jpg')}}" alt="">
+				<a href="#" ><img class="img-responsive" src="{{asset('images/pro.jpg')}}" alt="">
 				<div class="six1">
 					<h4>DISCOUNT</h4>
 					<p>Up to</p>
@@ -314,73 +300,203 @@ amet consectetuer </a></h6>
 				</div></a>
 			</div>
 				</div>
-				<!--Start product-->
-				<div class="col-md-9 product1">				
-					@if($listProducts!=null)
-					<?php $i=0; ?>
-					@foreach($listProducts as $product)					
-					@if($i == 0)
-					<div class=" bottom-product">
-					@endif
-						<div class="col-md-4 bottom-cd simpleCart_shelfItem">
-							<div class="product-at ">
-								<?php
-								$img = $product::find($product->id)->images->first()->getUrl();
-								?>
-								<a href="/{!!$product->getLink()!!}/p{!!$product->getID()!!}"><img class="img-responsive" style="width: 285px; height: 290px;" src="{{ URL::to('/images/' . $img) }}" alt="">
-								<div class="pro-grid">
-											<span class="buy-in">Buy Now</span>
-								</div>
-							</a>	
-							</div>
-							<p class="tun">{!!$product->getOverview()!!}</p>
-							<a href="#" class="item_add"><p class="number item_price"><i> </i>{!!$product->getPrice()!!}</p></a>						
-						</div>
-					<?php $i = ++$i;?>						
-					@if($i == 3)
-						<div class="clearfix"> </div>
-						<?php $i = 0; ?>
-					</div>
-					@endif
-					@endforeach
-					@endif
-				</div>
-				<!--End product-->
-		<div class="clearfix"> </div>
-		<!--pagination-->		
-		<nav class="in">
-				  <ul class="pagination">
-				  	<!--hide previous button if current page = 1-->
-				  	@if($currentPage==1)
-					<li class="hide"><a href="c{!!$idCategory!!}-page={!!$currentPage-1!!}" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-					@else
-					<li ><a href="c{!!$idCategory!!}-page={!!$currentPage-1!!}" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-					@endif
-					<!---->		
-					<!--active button if current page = $i-->
-					@for($i = 1; $i <= $totalPage; $i++)
-					@if($currentPage==$i)
-					<li class="active"><a href="c{!!$idCategory!!}-page={!!$i!!}">{!!$i!!}<span class="sr-only"></span></a></li>
-					@else
-					<li><a href="c{!!$idCategory!!}-page={!!$i!!}">{!!$i!!}<span class="sr-only"></span></a></li>
-					@endif					
-					@endfor
-					<!---->
-					<!--hide next button if current page = 1-->	
-					@if($currentPage==$totalPage)
-					<li class="hide"> <a href="c{!!$idCategory!!}-page={!!$currentPage+1!!}" aria-label="Next"><span aria-hidden="true">»</span> </a> </li>
-					@else
-					<li> <a href="c{!!$idCategory!!}-page={!!$currentPage+1!!}" aria-label="Next"><span aria-hidden="true">»</span> </a> </li>
-					@endif	
-					<!---->					
-				  </ul>
-				</nav>
-		</div>
-		<!--EndPagination-->		
-		</div>
-			
-				<!---->
+				<div class="col-md-9 product-price1">
+				<div class="col-md-5 single-top">	
+			<div class="flexslider">
+  <ul class="slides">
+	  <?php
+      $img = $product::find($product->id)->images;
+      ?>
+	  @foreach($img as $item)
+    <li data-thumb="{{ URL::to('/images/' . $item->getUrl()) }}">
+      <img src="{{ URL::to('/images/' . $item->getUrl()) }}" />
+    </li>
+      @endforeach
+  </ul>
+</div>
+<!-- FlexSlider -->
+  <script defer src="{{asset('js/jquery.flexslider.js')}}"></script>
+<link rel="stylesheet" href="{{asset('css/flexslider.css')}}" type="text/css" media="screen" />
 
+<script>
+// Can also be used with $(document).ready()
+$(window).load(function() {
+  $('.flexslider').flexslider({
+    animation: "slide",
+    controlNav: "thumbnails"
+  });
+});
+</script>
+					</div>	
+					<div class="col-md-7 single-top-in simpleCart_shelfItem">
+						<div class="single-para ">
+						<h4>{!! $product->getName() !!}</h4>
+							<div class="star-on">
+								<ul class="star-footer">
+										<li><a href="#"><i> </i></a></li>
+										<li><a href="#"><i> </i></a></li>
+										<li><a href="#"><i> </i></a></li>
+										<li><a href="#"><i> </i></a></li>
+										<li><a href="#"><i> </i></a></li>
+									</ul>
+								<div class="review">
+									<a href="#"> 1 customer review </a>
+									
+								</div>
+							<div class="clearfix"> </div>
+							</div>
+							
+							<h5 class="item_price">{!! $product->getPrice() !!} VND</h5>
+							<p>{!! $product->getOverview() !!}</p>
+							<div class="available">
+								<ul>
+                                    @if(count($listColors)>0)
+									<li>Color
+                                        <select>
+                                        @foreach($listColors as $color)
+										    <option>{!! $color->getValue() !!}</option>
+                                        @endforeach
+                                        </select>
+                                    </li>
+                                    @endif
+                                    @if(count($listSizes)>0)
+                                    <li class="size-in">Size
+                                        <select>
+                                        @foreach($listSizes as $size)
+                                            <option>{!! $size->getValue() !!}</option>
+                                        @endforeach
+                                        </select>
+                                    </li>
+                                    @endif
+								<div class="clearfix"> </div>
+							</ul>
+                            </div>
+                                @if($product->getInventory()>0)
+                                    <a href="#" class="add-cart item_add">ADD TO CART</a>
+                                @endif
+                        </div>
+					</div>
+				<div class="clearfix"> </div>
+			<!---->
+					<div class="cd-tabs">
+			<nav>
+				<ul class="cd-tabs-navigation">
+					<li><a data-content="fashion"  href="#0">Description </a></li>
+					<li><a data-content="cinema" href="#0" >Addtional Informatioan</a></li>
+					<li><a data-content="television" href="#0" class="selected ">Reviews (1)</a></li>
+					
+				</ul> 
+			</nav>
+	<ul class="cd-tabs-content">
+		<li data-content="fashion" >
+		<div class="facts">
+			<p >{!! $product->getInfo() !!} </p>
+			<ul>
+				<li>Research</li>
+				<li>Design and Development</li>
+				<li>Porting and Optimization</li>
+				<li>System integration</li>
+				<li>Verification, Validation and Testing</li>
+				<li>Maintenance and Support</li>
+			</ul>
+		</div>
+
+</li>
+<li data-content="cinema" >
+		<div class="facts1">
+            @if(count($listColors)>0)
+                <div class="color"><p>Color</p>
+                    @foreach($listColors as $color)
+                        @if($listColors->last() == $color)
+                            <span>{!! $color->getValue() !!}</span>
+                        @else
+                            <span>{!! $color->getValue() !!}</span>
+                            <span>-</span>
+                        @endif
+                    @endforeach
+                    <div class="clearfix"></div>
+                </div>
+            @endif
+            @if(count($listSizes)>0)
+                <div class="color">
+                    <p>Size</p>
+                    @foreach($listSizes as $size)
+                        @if($listSizes->last() == $size)
+                            <span>{!! $size->getValue() !!}</span>
+                        @else
+                            <span>{!! $size->getValue() !!}</span>
+                            <span>-</span>
+                        @endif
+                    @endforeach
+                    <div class="clearfix"></div>
+                </div>
+            @endif
+        </div>
+
+</li>
+<li data-content="television" class="selected">
+	<div class="comments-top-top">
+				<div class="top-comment-left">
+					<img class="img-responsive" src="{{asset('images/co.png')}}" alt="">
+				</div>
+				<div class="top-comment-right">
+					<h6><a href="#">Hendri</a> - September 3, 2014</h6>
+					<ul class="star-footer">
+										<li><a href="#"><i> </i></a></li>
+										<li><a href="#"><i> </i></a></li>
+										<li><a href="#"><i> </i></a></li>
+										<li><a href="#"><i> </i></a></li>
+										<li><a href="#"><i> </i></a></li>
+									</ul>
+									<p>Wow nice!</p>
+				</div>
+				<div class="clearfix"> </div>
+				<a class="add-re" href="#">ADD REVIEW</a>
+			</div>
+
+</li>
+<div class="clearfix"></div>
+	</ul> 
+</div> 
+		<div class=" bottom-product">
+					<div class="col-md-4 bottom-cd simpleCart_shelfItem">
+						<div class="product-at ">
+							<a href="#"><img class="img-responsive" src="{{asset('images/pi3.jpg')}}" alt="">
+							<div class="pro-grid">
+										<span class="buy-in">Buy Now</span>
+							</div>
+						</a>	
+						</div>
+						<p class="tun">It is a long established fact that a reader</p>
+						<a href="#" class="item_add"><p class="number item_price"><i> </i>$500.00</p></a>						
+					</div>
+					<div class="col-md-4 bottom-cd simpleCart_shelfItem">
+						<div class="product-at ">
+							<a href="#"><img class="img-responsive" src="{{asset('images/pi1.jpg')}}" alt="">
+							<div class="pro-grid">
+										<span class="buy-in">Buy Now</span>
+							</div>
+						</a>	
+						</div>
+						<p class="tun">It is a long established fact that a reader</p>
+<a href="#" class="item_add"><p class="number item_price"><i> </i>$500.00</p></a>					</div>
+					<div class="col-md-4 bottom-cd simpleCart_shelfItem">
+						<div class="product-at ">
+							<a href="#"><img class="img-responsive" src="{{asset('images/pi4.jpg')}}" alt="">
+							<div class="pro-grid">
+										<span class="buy-in">Buy Now</span>
+							</div>
+						</a>	
+						</div>
+						<p class="tun">It is a long established fact that a reader</p>
+<a href="#" class="item_add"><p class="number item_price"><i> </i>$500.00</p></a>					</div>
+					<div class="clearfix"> </div>
+				</div>
+</div>
+
+		<div class="clearfix"> </div>
+		</div>
+		</div>
 <!--//content-->
 <div class="footer">
 				<div class="container">
