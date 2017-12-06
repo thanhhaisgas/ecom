@@ -26,7 +26,6 @@ class UserRequest extends FormRequest
         return [
             //
             'displayname'=>'required',
-            'password'=>'required',
             'email'=>'required|unique:users,email|email'
         ];
     }
@@ -36,8 +35,8 @@ class UserRequest extends FormRequest
             'displayname.required'=>'Please enter display name',
             'email.required'=>'Please enter  email',
             'email.unique'=>'Email existed please choice different email ',
-            'email.email'=>'Email illegal',
-            'password.required'=>'Please enter password'
+            'email.email'=>'Email illegal'
+           
         ];
     }
 

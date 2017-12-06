@@ -11,16 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/home', function () {
-    return view('index');
-});
-
-
-Route::resource('authen/login','UserController');
+//login ,logout
+Route::resource('/login_user','UserController');
 
 Route::get('logout','Auth\LoginController@Logout');
 
@@ -31,13 +23,24 @@ Route::resource('administrator/user','ManagementController');
 Route::resource('administrator/category','CategoryController');
 Route::resource('administrator/product','ProductController');
 Route::resource('administrator/image','ImageController');
-
+Route::resource('/', 'IndexController');
 
 // function ajax
 Route::get('/ajax_insert_value/{id}','AjaxController@Get_Insert_Value');
 Route::post('/ajax_insert_value_post','AjaxController@Post_Insert_Value');
 Route::post('/ajax_insert_value_post_1','AjaxController@Post_Insert_Value_List');
 
+
+//cart
+Route::get('cart/{id}',['uses'=>'CartController@getAddToCart','as'=>'product.addToCart']);
+Route::get('/cart-delete/{id}',['uses'=>'CartController@getDeleteCart','as'=>'product.deleteCart']);
+Route::get('/cart-update/{id}/{qty}',['uses'=>'CartController@UpdateCart','as'=>'product.updateCart']);
+
+//page
+Route::get('/','indexController@index');
+Route::get('/pay','CheckoutController@pay');
+Route::get('/sendEmail','CheckoutController@sendEmail');
+Route::resource('checkout', 'CheckoutController');
 
 
 //route for listing filter by slug

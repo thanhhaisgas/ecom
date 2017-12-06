@@ -13,7 +13,7 @@ class ManagementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+        public function index()
     {
         //
         $userList = User::all();
@@ -46,6 +46,7 @@ class ManagementController extends Controller
         $add->email=$request->email;  
         $add->password= Crypt::encrypt($request->password);
         $add->level = $request->cbright;
+        
         $add->save();  
         return redirect('administrator/user');
     }

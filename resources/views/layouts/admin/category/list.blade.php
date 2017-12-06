@@ -25,7 +25,7 @@
                             <tr class="odd gradeX" align="center">
                                 <td>{!!$item->id!!}</td>
                                 <td>{!!$item->name!!}</td>
-                                <td>{!!$parentNames[$i]!!}</td>
+                                <td>{!!$item->parent_id!!}</td>
                                 <td><?php if($item->status==1){echo "Show";}else{echo "Hide";} ?></td>
                                 <form method="post" action="{{ route('category.destroy',$item->id)}}">
                                 <input type="hidden" name="_token" value="{!! csrf_token()!!}"/>

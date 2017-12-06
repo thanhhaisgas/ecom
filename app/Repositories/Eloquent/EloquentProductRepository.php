@@ -41,7 +41,7 @@ class EloquentProductRepository extends AbstractRepository implements ProductRep
         $product_add = $this->product->create($attribute);
         //insert category_to_product
         $category_to_product = $this->category->create(['category_id'=>$idcat,'product_id'=>$this->getByIdFirst($name)->id]);
-        
+
 
 
         //insert Image
