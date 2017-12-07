@@ -41,6 +41,16 @@ class Product_To_Category extends Model
         Product_To_Category::where('product_id',$id)->delete();
 
     }
+    /*Hai Nguyen*/
+    //get all ids of product by category id
+    public static function getProductsByCategoryID($id){
+        $idsProductList = Product_To_Category::where('category_id',$id)->get();
+        return $idsProductList;
+    }
+    public static function getCategoryIdByProductId($id){
+        $id = Product_To_Category::where('product_id',$id)->first();
+        return $id->getCategory_id();
+    }
 
  
 }

@@ -118,21 +118,40 @@ class Product extends Model
        
     }
 
-
     //delete
     public static function DeleteProduct($id){
         Product::getByIdProduct($id)->delete();
         
     }
-    
 
- 
-
-
-
-
-
-
-
+    /*Hai Nguyen*/
+    //get all products exist in idsProductList
+    public static function getProductsInCategory($idCategory){
+        $idsProductList = Product_To_Category::getProductsByCategoryID($idCategory);
+        $listProducts = array();
+        foreach ($idsProductList as $item) {
+            array_push($listProducts, Product::getByIdProduct($item->product_id));
+        }
+        return $listProducts;
+    }
+    //getLimitProsucts
+    public static function getPaginationProducts(array $listProducts, $currentPage){
+        $to = $currentPage*9;
+        $from = $to - 9;
+        $count = 0;
+        $listLimitProducts = array();
+        if ($to>count($listProducts)) {
+            for ($i=$from; $i<count($listProducts) ; $i++) { 
+            array_push($listLimitProducts, $listProducts[$i]);
+            $count = ++$count;
+        }
+        }else{
+            for ($i=$from; $i<$to ; $i++) { 
+            array_push($listLimitProducts, $listProducts[$i]);
+            $count = ++$count;
+        }
+        }
+        return $listLimitProducts;
+    }
 
 }
