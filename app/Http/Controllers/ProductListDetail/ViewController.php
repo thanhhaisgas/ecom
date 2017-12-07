@@ -15,7 +15,8 @@ class ViewController extends Controller
     //
     public function setViewListing($slug, $id, $numPage){
         //setup category and breadcrum
-    	$listCategories = Category::getChildsOfCategory($id);
+        $listCategories = Category::getChildsOfCategory($id);
+        //print_r($listCategories);
     	$listBreadcrum = array();
     	$listBreadcrum = Category::getNameBreadcrum($id, $listBreadcrum);
         //get all products belong to this category

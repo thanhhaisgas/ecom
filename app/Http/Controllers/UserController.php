@@ -21,14 +21,12 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+
         if(session()->has('login')){
-            return  redirect('home');
+            return back()->withInput();
         }else{
-            return view('authen');
+            return view('client.page.login');
         }
-       
-  
     }
 
     /**
@@ -53,10 +51,10 @@ class UserController extends Controller
 
            $au = new Authen($request->email);
             if($au->Login($request->key,$request->password1)){
-                return redirect('home');
+                return redirect('pay');
             }else{
-             
-                return redirect('authen/login');
+                session()->flash('errorlogin','Email Or Password wrong');
+                return redirect('login_user');
             }
     }
 
@@ -103,6 +101,12 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function logout(){
+        $au = new Authen($request->email);
+        $au->Logout();
+        return redirect('/');
     }
    
 }

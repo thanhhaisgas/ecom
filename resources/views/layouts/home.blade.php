@@ -49,7 +49,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 					</ul>
 					<div class="cart box_1">
-						<a href="checkout.html">
+						<a href="/checkout">
 						<h3> <div class="total">
 							<span class="simpleCart_total"></span> (<span id="simpleCart_quantity" class="simpleCart_quantity"></span> items)</div>
 							<img src="{{asset('images/cart.png')}}" alt=""/></h3>
@@ -311,14 +311,14 @@ amet consectetuer </a></h6>
 								<?php
 								$img = $product::find($product->id)->images->first()->getUrl();
 								?>
-								<a href="/{!!$product->getLink()!!}/p{!!$product->getID()!!}"><img class="img-responsive" style="width: 285px; height: 290px;" src="{{ URL::to('/images/' . $img) }}" alt="">
+								<a href="/{!!$product->getLink()!!}/p{!!$product->getID()!!}"><img class="img-responsive" style="width: 285px; height: 290px;" src="{{ URL::to('/storage/' . $img) }}" alt="">
 								<div class="pro-grid">
 											<span class="buy-in">Buy Now</span>
 								</div>
 							</a>	
 							</div>
 							<p class="tun">{!!$product->getOverview()!!}</p>
-							<a href="#" class="item_add"><p class="number item_price"><i> </i>{!!$product->getPrice()!!}</p></a>						
+							<a href="/cart/{!!$product->getId()!!}" class="item_add"><p class="number item_price"><i> </i>{!!$product->getPrice()!!}</p></a>						
 						</div>
 					<?php $i = ++$i;?>						
 					@if($i == 3)

@@ -44,12 +44,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="header-left">		
 					<ul>
 						<li ><a class="lock"  href="login.html"  >Login</a></li>
-						<li><a class="lock" href="games.html"  >Checkout</a></li>
+						<li><a class="lock" href="/checkout"  >Checkout</a></li>
 						<li></li>
 
 					</ul>
 					<div class="cart box_1">
-						<a href="checkout.html">
+						<a href="/checkout">
 						<h3> <div class="total">
 							<span class="simpleCart_total"></span> (<span id="simpleCart_quantity" class="simpleCart_quantity"></span> items)</div>
 							<img src="{{asset('images/cart.png')}}" alt=""/></h3>
@@ -327,7 +327,7 @@ amet consectetuer </a></h6>
 								<?php
 								$img = $product::find($product->id)->images->first()->getUrl();
 								?>
-								<a href="/{!!$product->getLink()!!}/p{!!$product->getID()!!}"><img class="img-responsive" style="width: 285px; height: 290px;" src="{{ URL::to('/images/' . $img) }}" alt="">
+								<a href="/{!!$product->getLink()!!}/p{!!$product->getID()!!}"><img class="img-responsive" style="width: 285px; height: 290px;" src="{{ URL::to('/storage/' . $img) }}" alt="">
 								<div class="pro-grid">
 											<span class="buy-in">Buy Now</span>
 								</div>

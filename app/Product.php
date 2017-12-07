@@ -23,9 +23,11 @@ class Product extends Model
 
     }
 
-    public function images(){
+    public  function images(){
         return $this->hasMany('App\Image');
     }
+
+
     public function product_attribute(){
         return $this->hasMany('App\Product_Attribute');
     }
@@ -119,6 +121,7 @@ class Product extends Model
     //delete
     public static function DeleteProduct($id){
         Product::getByIdProduct($id)->delete();
+        
     }
 
     /*Hai Nguyen*/

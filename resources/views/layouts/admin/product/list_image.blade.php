@@ -27,7 +27,7 @@
                             <tr class="odd gradeX" align="center">
                                 <td>{!!$item->id!!}</td>
                                 <td>
-                                <img width="150" height="120" src="{{ URL::to('/images/' . $item->url) }}" alt="" class="img-responsive">
+                                <img width="150" height="120" src="{{ URL::to('/storage/' . $item->url) }}" alt="" class="img-responsive">
                                 </td>
                                 
                                 <td class="center">

@@ -37,7 +37,7 @@ class LoginController extends Controller
         public function Logout(){
             if(session()->has('login')){
                 session()->forget('login');
-                return redirect('authen/login');
+                return redirect('');
             }
             return null;
         }

@@ -9,7 +9,7 @@ use App\Category;
 use App\Product_To_Category;
 use App\Product_Attribute;
 use Storage;
-use Object;
+
 use App\Image;
 
 use App\Repositories\Contracts\ProductRepository;

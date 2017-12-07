@@ -53,7 +53,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 					</ul>
 					<div class="cart box_1">
-						<a href="checkout.html">
+						<a href="/checkout">
 						<h3> <div class="total">
 							<span class="simpleCart_total"></span> (<span id="simpleCart_quantity" class="simpleCart_quantity"></span> items)</div>
 							<img src="{{asset('images/cart.png')}}" alt=""/></h3>
@@ -309,7 +309,7 @@ amet consectetuer </a></h6>
       ?>
 	  @foreach($img as $item)
     <li data-thumb="{{ URL::to('/images/' . $item->getUrl()) }}">
-      <img src="{{ URL::to('/images/' . $item->getUrl()) }}" />
+      <img src="{{ URL::to('/storage/' . $item->getUrl()) }}" />
     </li>
       @endforeach
   </ul>
@@ -372,7 +372,7 @@ $(window).load(function() {
 							</ul>
                             </div>
                                 @if($product->getInventory()>0)
-                                    <a href="#" class="add-cart item_add">ADD TO CART</a>
+                                    <a href="/cart/{!! $product->getId() !!}" class="add-cart item_add">ADD TO CART</a>
                                 @endif
                         </div>
 					</div>
